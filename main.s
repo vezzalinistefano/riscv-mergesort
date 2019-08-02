@@ -9,9 +9,10 @@
 .section .data
     testArray: .byte  12, 8, 9, 7, 20, 18, 9, 1
 
+.section .text
 _start:
     la a1, testArray            # load testArray in a0
-    li a2, 0
+    li a2, 0                    
     lbu a3, size
     addi a3, a3, -1
 
@@ -20,4 +21,4 @@ _start:
     li a7, _SYS_EX
     ecall
     
-        
+          
