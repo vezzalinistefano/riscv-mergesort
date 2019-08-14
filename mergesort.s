@@ -18,7 +18,7 @@ mergesort:
 
    
    # Base case
-   li t1, 8                      # Size of one element
+   li t1, 1                      # Size of one element
    sub t0, a1, a0                # Calculate number of elements * 8
    ble t0, t1, mergesort_end     # If only one element remains in the array, return
 
@@ -77,8 +77,8 @@ merge:
       
       shift_skip: 
 
-            addi s0, s0, 8          # Increment first half index and point to the next element
-            lb a2, 24(sp)           # Load back last element address
+            addi s0, s0, 1          # Increment first half index and point to the next element
+            ld a2, 24(sp)           # Load back last element address
 
             bge s0, a2, merge_loop_end
             bge s1, a2, merge_loop_end
@@ -92,11 +92,12 @@ merge:
       shift:
 
          ble a0, a1, shift_end      # Location reached, stop shifting
-         addi t3, a0, -8            # Go to the previous element in the array
-         ld t4, 0(a0)               # Load current position pointer
-         ld t5, 0(t3)               # Load previous position pointer
-         sd t4, 0(t3)               # Save current pointer to previous address
-         mv a0, t6 
+         addi t3, a0, -1            # Go to the previous element in the array
+         lb t4, 0(a0)
+         lb t5, 0(t3)
+         sb t4, 0(t3)
+         sb t5, 0(a0)
+         mv a0, t3
          j shift
 
       shift_end:
