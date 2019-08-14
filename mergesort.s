@@ -26,29 +26,29 @@ mergesort:
    add a1, a0, t0                # Calculate array midpoint address
    sd a1, 24(sp)                 # Store it on the stack
 
-   jal ra, mergesort             # Recursive call on first half of the array
+   jal mergesort             # Recursive call on first half of the array
 
    ld a0, 24(sp)                 # Load midpoint back from the stack
-   addi a0, a0, 8                # Second recursive call starts from the address after midpoint address 
    ld a1, 16(sp)                 # Load last element address back from the stack
 
-   jal ra, mergesort             # Recursive call on second half of the array
+   jal mergesort             # Recursive call on second half of the array
 
    ld a0, 8(sp)                  # Load first element address back from the stack
-   ld a2, 24(sp)                 # Load midpoint address back form the stack
-   ld a1, 16(sp)                 # Load last element address back from the stack
+   ld a1, 24(sp)                 # Load midpoint address back form the stack
+   ld a2, 16(sp)                 # Load last element address back from the stack
 
-   jal ra, merge                 # Merge two sorted sub-arrays
+   jal merge                 # Merge two sorted sub-arrays
 
 mergesort_end:
-
+   ld ra, 0(sp)
+   addi sp, sp, 32
    ret
 
 ##
 # Merge(*testArray, first, midpoint, last)
 # param a0 -> first address of first array   
-# param a2 -> first address of second array
-# param a1 -> last address of second array
+# param a1 -> first address of second array
+# param a2 -> last address of second array
 ##
 merge:
 
@@ -64,8 +64,8 @@ merge:
 
    merge_loop:
 
-      ld t0, 0(s0)               # Load first half position address
-      ld t1, 0(s1)               # Load second half position address
+      mv t0, s0               # Load first half position address
+      mv t1, s1               # Load second half position address
       lb t0, 0(t0)               # Load first half position value
       lb t1, 0(t1)               # Load second half position value   
 
@@ -108,4 +108,3 @@ merge:
       ld ra, 0(sp)
       addi sp, sp, 32
       ret
-      
