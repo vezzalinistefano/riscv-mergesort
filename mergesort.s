@@ -64,8 +64,8 @@ merge:
 
    merge_loop:
 
-      mv t0, s0               # Load first half position address
-      mv t1, s1               # Load second half position address
+      mv t0, s0                  # Load first half position address
+      mv t1, s1                  # Load second half position address
       lb t0, 0(t0)               # Load first half position value
       lb t1, 0(t1)               # Load second half position value   
 
@@ -75,6 +75,8 @@ merge:
       mv a1, s0                  # a1 -> address to move it to
       jal shift                  # jump to shift 
       
+      addi s1, s1, 1
+
       shift_skip: 
 
             addi s0, s0, 1          # Increment first half index and point to the next element
@@ -82,7 +84,7 @@ merge:
 
             bge s0, a2, merge_loop_end
             bge s1, a2, merge_loop_end
-            ret
+            beq x0, x0, merge_loop
 
       ##
       # Shift array element to a lower address
@@ -98,7 +100,7 @@ merge:
          sb t4, 0(t3)
          sb t5, 0(a0)
          mv a0, t3
-         j shift
+         beq x0, x0, shift
 
       shift_end:
 
