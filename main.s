@@ -5,11 +5,11 @@
 .include "mergesort.s"
 
 .section .rodata
-    size: .byte 7               # set this accordingly to testArray size
+    size: .byte 5               # set this accordingly to testArray size
 .section .data
-    #testArray: .byte  5, 3, 8, 2,  20
+    testArray: .byte  5, 3, 8, 2, 20
     #testArray: .byte 1
-    testArray: .byte 10, 9, 8, 7, 6, 5, 4 
+    #testArray: .byte 10, 9, 8, 7, 6, 5, 4 
 
 
 .section .text

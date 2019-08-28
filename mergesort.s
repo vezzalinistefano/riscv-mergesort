@@ -1,7 +1,3 @@
-.section .bss
-   L: .byte
-   R: .byte
-
 .section .text
 ##
 # MERGESORT(*testArray, first, last)
@@ -26,18 +22,18 @@ mergesort:
    add a1, a0, t0                # Calculate array midpoint address
    sd a1, 24(sp)                 # Store it on the stack
 
-   jal mergesort             # Recursive call on first half of the array
+   jal mergesort                 # Recursive call on first half of the array
 
    ld a0, 24(sp)                 # Load midpoint back from the stack
    ld a1, 16(sp)                 # Load last element address back from the stack
 
-   jal mergesort             # Recursive call on second half of the array
+   jal mergesort                 # Recursive call on second half of the array
 
    ld a0, 8(sp)                  # Load first element address back from the stack
    ld a1, 24(sp)                 # Load midpoint address back form the stack
    ld a2, 16(sp)                 # Load last element address back from the stack
 
-   jal merge                 # Merge two sorted sub-arrays
+   jal merge                     # Merge two sorted sub-arrays
 
 mergesort_end:
    ld ra, 0(sp)
@@ -55,17 +51,17 @@ merge:
    # Stack management
    addi sp, sp, -32              # Adjust stack pointer
    sd ra, 0(sp)                  # Load return address
-   sd a0, 8(sp)                  # Load first element address
-   sd a1, 16(sp)                 # Load last element address
-   sd a2, 24(sp)                 # Load midpoint element address
+   sd a0, 8(sp)                  # Load first element of first array address
+   sd a1, 16(sp)                 # Load first element of second array address
+   sd a2, 24(sp)                 # Load last element of second array address
 
    mv s0, a0                     # First half address copy 
    mv s1, a1                     # Second half address copy
 
    merge_loop:
 
-      mv t0, s0                  # Load first half position address
-      mv t1, s1                  # Load second half position address
+      mv t0, s0                  # copy first half position address
+      mv t1, s1                  # copy second half position address
       lb t0, 0(t0)               # Load first half position value
       lb t1, 0(t1)               # Load second half position value   
 
