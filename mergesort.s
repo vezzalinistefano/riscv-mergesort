@@ -15,7 +15,7 @@ mergesort:
    
    # Base case
    li t1, 1                      # Size of one element
-   sub t0, a1, a0                # Calculate number of elements * 8
+   sub t0, a1, a0                # Calculate number of elements
    ble t0, t1, mergesort_end     # If only one element remains in the array, return
 
    srli  t0, t0, 1               # Divide array size to get half of the element
