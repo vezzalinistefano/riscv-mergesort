@@ -91,12 +91,12 @@ merge:
 
          ble a0, a1, shift_end      # Location reached, stop shifting
          addi t3, a0, -1            # Go to the previous element in the array
-         lb t4, 0(a0)
-         lb t5, 0(t3)
-         sb t4, 0(t3)
-         sb t5, 0(a0)
-         mv a0, t3
-         beq x0, x0, shift
+         lb t4, 0(a0)               # Get current element pointer
+         lb t5, 0(t3)               # Get previous element pointer
+         sb t4, 0(t3)               # Copy current element pointer to previous element address
+         sb t5, 0(a0)               # Copy previous element pointer to current element address
+         mv a0, t3                  # Shift current position back
+         beq x0, x0, shift          # Loop again
 
       shift_end:
 
